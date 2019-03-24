@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<extentreports>
+    <configuration>
+        <encoding>UTF-8</encoding>
+        <theme>dark</theme>
+        <documentTitle>Agro India</documentTitle>
+        <reportName>AgroStar - Automation Framework
+        </reportName>
+        <reportHeadline>- v1.0.0</reportHeadline>
+
+        <!-- settings to enable/disable views -->
+        <enableCategoryView>false</enableCategoryView>
+        <enableAuthorView>true</enableAuthorView>
+        <enableExceptionView>true</enableExceptionView>
+        <enableTestRunnerLogsView>true</enableTestRunnerLogsView>
+        <enableTimeline>true</enableTimeline>
+    </configuration>
+</extentreports>
