@@ -12,7 +12,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Versions -->
         <java.version>1.8</java.version>
-        <cucumber-jvm.version>4.2.6</cucumber-jvm.version>
+        <cucumber-jvm.version>2.0.0</cucumber-jvm.version>
         <cucumber-picocontainer.version>1.2.5</cucumber-picocontainer.version>
         <rest-assured.version>2.9.0</rest-assured.version>
         <cucumber-testng.version>1.2.5</cucumber-testng.version>
@@ -43,6 +43,7 @@
             <groupId>io.cucumber</groupId>
             <artifactId>cucumber-jvm</artifactId>
             <version>${cucumber-jvm.version}</version>
+            <type>pom</type>
         </dependency>
 
         <!-- https://mvnrepository.com/artifact/info.cukes/cucumber-picocontainer -->
@@ -82,13 +83,12 @@
             <artifactId>cucumber-extentsreport</artifactId>
             <version>${cucumber-extentsreport.version}</version>
         </dependency>
-        <dependency>
 
+        <dependency>
             <groupId>com.aventstack</groupId>
             <artifactId>extentreports</artifactId>
-            <version>3.1.5</version>
+            <version>3.1.1</version>
         </dependency>
-
 
     </dependencies>
 
