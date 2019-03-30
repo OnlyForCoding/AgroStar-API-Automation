@@ -11,7 +11,7 @@ import java.util.Map;
 public class RestfulWebServices {
 
     private Gson gson = new Gson();
-    private String authToken = "e8dc8a857f3a881cd2616495693a40277e8ed322";
+    private String authToken = "97bbb8a558f6e3ee2092293d6980c955305df943";
 
     public RestfulWebServices() {
     }
@@ -59,11 +59,36 @@ public class RestfulWebServices {
         return response;
     }
 
-    public Response DeleteCall(JsonObject jsonBody, String stringBody, String endPoint, Map<String, String> headers, String authToken) {
+    public Response putCall(JsonObject jsonBody, String stringBody, String endPoint, Map<String, String> headers, String authToken) {
         RequestSpecification request = RestAssured.given().relaxedHTTPSValidation();
         request.accept("application/json");
         request.header("Content-Type", "application/json", new Object[0]);
-        if (!headers.isEmpty()) {
+        if ( null != headers) {
+            request.headers(headers);
+        }
+
+        if (authToken != null) {
+            request.authentication().oauth2(authToken);
+        }
+
+        if (jsonBody != null) {
+            request.body(this.gsonToJson(jsonBody));
+        }
+
+        if (stringBody != null) {
+            request.body(stringBody);
+        }
+
+        Response response = (Response) request.put(endPoint);
+        response.prettyPrint();
+        return response;
+    }
+
+    public Response deleteCall(JsonObject jsonBody, String stringBody, String endPoint, Map<String, String> headers, String authToken) {
+        RequestSpecification request = RestAssured.given().relaxedHTTPSValidation();
+        request.accept("application/json");
+        request.header("Content-Type", "application/json", new Object[0]);
+        if (null != headers) {
             request.headers(headers);
         }
 

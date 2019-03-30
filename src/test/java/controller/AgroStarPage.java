@@ -4,6 +4,9 @@ import com.jayway.restassured.response.Response;
 import org.json.simple.JSONObject;
 import org.testng.Assert;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class AgroStarPage {
 
     private RestfulWebServices restfulWebServices;
@@ -49,6 +52,7 @@ public class AgroStarPage {
 
     public void createNewRepository() {
         response = restfulWebServices.postCall(null, requestPayloadInString, endpoint, null, restfulWebServices.getAuthToken());
+        setNameOfRepository(response.jsonPath().get("name"));
     }
 
     public void changeNameOfRepository(String currentFileName) {
@@ -85,5 +89,36 @@ public class AgroStarPage {
 
     public void assertErrorMessageForMissingRepository(String errorMessage){
         Assert.assertEquals(response.jsonPath().get("message"), errorMessage, "Expected error message is not getting");
+    }
+
+    public void deleteRecentRepo(){
+        if (null == getNameOfRepository()){
+            throw new RuntimeException("Please run the post call to create the repository");
+        }
+        endpoint = "https://api.github.com/repos/OnlyForCoding/"+getNameOfRepository();
+        restfulWebServices.deleteCall(null, null, endpoint,null, restfulWebServices.getAuthToken());
+    }
+
+    public void assertThatIsRecentCreatedRepoDeleted(){
+        if (null == getNameOfRepository()){
+            throw new RuntimeException("Please run the post call to create the repository");
+        }
+        endpoint = "https://api.github.com/repos/OnlyForCoding/"+getNameOfRepository();
+        response = restfulWebServices.getCall(endpoint,null,restfulWebServices.getAuthToken());
+        assertErrorMessageForMissingRepository("Not Found");
+    }
+
+    public void starTheRecentlyCreatedRepo(){
+        Map<String, String> headers = new HashMap<>();
+        headers.put("Content-Length","0");
+        endpoint = "https://api.github.com/user/starred/OnlyForCoding/"+getNameOfRepository();
+        restfulWebServices.putCall(null, null,endpoint,null,restfulWebServices.getAuthToken());
+    }
+
+    public void assertThatIsRepoStarred(){
+        endpoint = "https://api.github.com/repos/OnlyForCoding/"+getNameOfRepository();
+        response = restfulWebServices.getCall(endpoint,null,restfulWebServices.getAuthToken());
+        //Assert.assertEquals(response.jsonPath().get("stargazers_count"), "1","Repo is not starred");
+        Assert.assertEquals(response.jsonPath().get("stargazers_count").toString(), "1","Repo is not starred");
     }
 }

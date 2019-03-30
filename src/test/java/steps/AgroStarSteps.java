@@ -38,7 +38,6 @@ public class AgroStarSteps {
     @Then("^I see response status is (\\d+)$")
     public void iSeeResponseStatusIs(int statusCode) {
         agroStarPage.assertThatStatusCode(statusCode);
-
     }
 
     @When("^I change the name of the repository in request payload file \"([^\"]*)\"$")
@@ -64,5 +63,25 @@ public class AgroStarSteps {
     @And("^I see the error message as \"([^\"]*)\"$")
     public void iSeeTheErrorMessageAs(String errorMsg) {
         agroStarPage.assertErrorMessageForMissingRepository(errorMsg);
+    }
+
+    @When("^I delete the recently created repo$")
+    public void iDeleteTheCreatedRepo() {
+        agroStarPage.deleteRecentRepo();
+    }
+
+    @Then("^I see that repo is deleted$")
+    public void iSeeThatRepoIsDeleted() {
+        agroStarPage.assertThatIsRecentCreatedRepoDeleted();
+    }
+
+    @When("^I star the recently created repository$")
+    public void iStarTheRecentlyCreatedRepository() {
+        agroStarPage.starTheRecentlyCreatedRepo();
+    }
+
+    @Then("^I see that repo is starred$")
+    public void iSeeThatRepoIsStarred() {
+        agroStarPage.assertThatIsRepoStarred();
     }
 }
